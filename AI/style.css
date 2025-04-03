@@ -1,0 +1,204 @@
+/* Chế độ sáng (Light Mode) */
+:root {
+  --background-color: #f4f4f9;
+  --text-color: #333;
+  --article-bg: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --highlight-color: #ffcc00;
+  --hover-color: #ff5733;
+  --border-radius: 15px;
+  --transition-speed: 0.3s;
+  --article-padding: 20px;
+  --article-gap: 25px;
+  --font-family: "Poppins", sans-serif;
+}
+
+/* Chế độ tối (Dark Mode) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #1b1b1f;
+    --text-color: #f1f1f1;
+    --article-bg: #25252b;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+    --highlight-color: #ffcc00;
+    --hover-color: #ff5733;
+  }
+}
+
+/* Định dạng tổng thể */
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: background-color var(--transition-speed),
+    color var(--transition-speed);
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+  padding: 30px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 5px 15px var(--shadow-color);
+  background-color: var(--article-bg);
+  transition: box-shadow var(--transition-speed);
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+h1 {
+  color: var(--text-color);
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+/* Nội dung giới thiệu */
+.intro p {
+  font-size: 18px;
+  text-align: center;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 20px;
+}
+
+/* Bố cục bài viết */
+.articles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--article-gap);
+}
+
+/* Định dạng từng bài viết */
+article {
+  display: flex;
+  align-items: center;
+  background-color: var(--article-bg);
+  padding: var(--article-padding);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: transform var(--transition-speed),
+    box-shadow var(--transition-speed);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+article.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+article:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px var(--shadow-color);
+}
+
+/* Hình ảnh bài viết */
+article img {
+  width: 220px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  margin-right: 20px;
+  transition: transform var(--transition-speed),
+    box-shadow var(--transition-speed);
+}
+
+article:hover img {
+  transform: scale(1.08);
+  box-shadow: 0 0 15px var(--shadow-color);
+}
+
+/* Tiêu đề bài viết */
+article h3 {
+  font-size: 22px;
+  color: var(--highlight-color);
+  margin: 0 0 10px 0;
+  transition: color var(--transition-speed);
+}
+
+article h3 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+article h3:hover {
+  color: var(--hover-color);
+  text-decoration: underline;
+  transform: scale(1.02);
+}
+
+/* Mô tả bài viết */
+article figcaption {
+  font-size: 16px;
+  color: var(--text-color);
+  line-height: 1.4;
+  opacity: 0.8;
+  transition: opacity var(--transition-speed);
+}
+
+article:hover figcaption {
+  opacity: 1;
+}
+
+/* Điều chỉnh bố cục trên thiết bị di động */
+@media (max-width: 768px) {
+  article {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+  }
+
+  article img {
+    max-width: 90%;
+    height: auto;
+    margin-bottom: 15px;
+    margin-right: 0;
+  }
+
+  article h3 {
+    font-size: 20px;
+  }
+}
+.intro-image {
+  display: block;
+  margin: 20px auto; /* Căn giữa theo chiều ngang */
+  max-width: 100%; /* Đảm bảo hình ảnh không vượt quá chiều rộng container */
+  height: auto; /* Giữ tỷ lệ hình ảnh */
+}
+.video-frame {
+  display: block; /* Đảm bảo video là một khối */
+  margin: 20px auto; /* Căn giữa theo chiều ngang */
+  max-width: 100%; /* Đảm bảo video không vượt quá chiều rộng container */
+}
+
+.intro-caption {
+  display: block; /* Đảm bảo nó là một khối */
+  text-align: center; /* Căn giữa nội dung */
+  font-style: italic; /* Tùy chọn: làm cho chú thích nghiêng */
+  margin-top: 10px; /* Tạo khoảng cách trên */
+}
+
+.video-player {
+  display: block; /* Đảm bảo video là một khối */
+  margin: 20px auto; /* Căn giữa video theo chiều ngang */
+  max-width: 100%; /* Đảm bảo video không vượt quá chiều rộng container */
+  height: auto; /* Giữ tỷ lệ khung hình */
+  border: 1px solid #ccc; /* Tùy chọn: Thêm viền cho video */
+  border-radius: 8px; /* Tùy chọn: Bo tròn các góc video */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tùy chọn: Thêm hiệu ứng đổ bóng */
+}
