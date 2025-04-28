@@ -1,0 +1,34 @@
+body {
+    font-family: "Times New Roman", sans-serif;
+    font-size: 20px;
+    line-height: 2;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+h1 {
+    color: #333;
+}
+.rating {
+    color: #ffcc00;
+}
+.views {
+    color: gray;
+    font-size: 14px;
+}
+.image-container img {
+    width: 100%;
+    border-radius: 8px;
+}
+.video-container {
+    text-align: center;
+    margin: 20px 0;
+}

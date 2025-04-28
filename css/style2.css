@@ -1,0 +1,152 @@
+/* Left Sidebar Styles */
+.sidebar {
+    flex: 0 0 240px;
+    margin-right: 20px;
+}
+
+.sidebar-menu {
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-menu h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    padding: 15px;
+    margin: 0;
+    border-bottom: 1px solid #eee;
+}
+
+.explorer-heading {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    margin: 10px 0;
+}
+
+.green-bar {
+    display: block;
+    width: 6px;
+    height: 24px;
+    background-color: #4c7c1b;
+    margin-right: 10px;
+}
+
+.explorer-heading h4 {
+    color: #4c7c1b;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.sidebar-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu ul li {
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar-menu ul li a {
+    display: block;
+    padding: 12px 15px;
+    color: #555;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+.sidebar-menu ul li a:hover {
+    background-color: #f0f0f0;
+    color: #2E86C1;
+    padding-left: 18px;
+}
+
+.source-link {
+    padding: 12px 15px;
+    font-size: 12px;
+    color: #666;
+    background-color: #f0f0f0;
+}
+
+.source-link a {
+    color: #666;
+}
+
+/* Right Sidebar Styles */
+.right-sidebar {
+    flex: 0 0 300px;
+    margin-left: 20px;
+}
+
+.popular-posts {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+.popular-posts h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.popular-posts h3.second-heading {
+    margin-top: 30px;
+}
+
+.news-item {
+    display: flex;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.news-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.news-thumbnail {
+    flex: 0 0 80px;
+    margin-right: 10px;
+}
+
+.news-thumbnail img {
+    width: 100%;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.news-content h4 {
+    font-size: 14px;
+    margin: 0 0 5px 0;
+    line-height: 1.4;
+}
+
+.news-content p {
+    font-size: 12px;
+    color: #777;
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media screen and (max-width: 992px) {
+    .sidebar, .right-sidebar {
+        flex: 0 0 100%;
+        margin: 0 0 20px 0;
+    }
+    
+    .main-content .inner-wrap {
+        flex-direction: column;
+    }
+}

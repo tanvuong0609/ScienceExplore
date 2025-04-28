@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang admin</title>
+    <link rel="stylesheet" href="moduels/admin.css">
+    
+</head>
+<body>
+    <div class="container">
+        <div class="left-wrap">
+            <div class="logo">Group<span>Six</span></div>
+            <div class="menu">
+                <ul>
+                    <li><i class="fa-solid fa-user"></i></li>
+                    <li>Trang chủ</li>
+                </ul>
+                <ul>
+                    <li><i class="fa-solid fa-user"></i></li>
+                    <li>Người dùng</li>
+                </ul>
+                <ul>
+                    <li><i class="fa-solid fa-gauge-high"></i></li>
+                    <li>Quản lý</li>
+                </ul>
+                <ul>
+                    <li><i class="fa-solid fa-newspaper"></i></li>
+                    <li>Bài viết</li>
+                </ul>
+                <ul>
+                    <li><i class="fa-solid fa-rss"></i></li>
+                    <li>Tin tức</li>
+                </ul>
+                <ul>
+                    <li><i class="fa-solid fa-users"></i></li>
+                    <li>Cộng đồng</li>
+                </ul>
+                <ul>
+                    <li><i class="fa-solid fa-laptop-code"></i></li>
+                    <li>Thực hành</li>
+                </ul>
+                <ul>
+                    <li><i class="fa-solid fa-gamepad"></i></li>
+                    <li>Trò chơi</li>
+                </ul>
+                <ul>
+                    <li><i class="fa-solid fa-cog"></i></li>
+                    <li>Quản lý chung</li>
+                </ul>
+            </div>
+        </div>
+        <div class="right-wrap">
+            <div class="header">
+                <h1>Trang quản trị thống kê</h1>
+                <select class="date-selector">
+                    <option>Hôm nay</option>
+                    <option>Tuần này</option>
+                    <option>Tháng này</option>
+                    <option>Năm nay</option>
+                </select>
+            </div>
+
+        <div class="user">
+            <img src="images/usser.png" alt="">
+        </div>
+    
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Tổng lượt truy cập</h3>
+                    <div class="stat-value">24,892</div>
+                    <div class="stat-change positive">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                        +12.5% so với tuần trước
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3>Người dùng mới</h3>
+                    <div class="stat-value">1,258</div>
+                    <div class="stat-change positive">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                        +8.3% so với tuần trước
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3>Tỷ lệ thoát</h3>
+                    <div class="stat-value">42.3%</div>
+                    <div class="stat-change negative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                        +2.1% so với tuần trước
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3>Thời gian trung bình</h3>
+                    <div class="stat-value">3m 42s</div>
+                    <div class="stat-change positive">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                        +0.8% so với tuần trước
+                    </div>
+                </div>
+            </div>
+    
+            <div class="charts-container">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h2>Lượt truy cập theo thời gian</h2>
+                        <div class="chart-tabs">
+                            <div class="chart-tab active">Ngày</div>
+                            <div class="chart-tab">Tuần</div>
+                            <div class="chart-tab">Tháng</div>
+                        </div>
+                    </div>
+                    <div class="chart">
+                        <svg class="line-chart" viewBox="0 0 800 300">
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#3498db" stop-opacity="0.8"/>
+                                    <stop offset="100%" stop-color="#3498db" stop-opacity="0.1"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Grid lines -->
+                            <line class="chart-axis" x1="50" y1="250" x2="750" y2="250"></line>
+                            <line class="chart-axis" x1="50" y1="200" x2="750" y2="200"></line>
+                            <line class="chart-axis" x1="50" y1="150" x2="750" y2="150"></line>
+                            <line class="chart-axis" x1="50" y1="100" x2="750" y2="100"></line>
+                            <line class="chart-axis" x1="50" y1="50" x2="750" y2="50"></line>
+                            
+                            <!-- Y-axis labels -->
+                            <text class="chart-label" x="35" y="250" text-anchor="end">0</text>
+                            <text class="chart-label" x="35" y="200" text-anchor="end">500</text>
+                            <text class="chart-label" x="35" y="150" text-anchor="end">1000</text>
+                            <text class="chart-label" x="35" y="100" text-anchor="end">1500</text>
+                            <text class="chart-label" x="35" y="50" text-anchor="end">2000</text>
+                            
+                            <!-- X-axis labels (days) -->
+                            <text class="chart-label" x="75" y="270" text-anchor="middle">T2</text>
+                            <text class="chart-label" x="186" y="270" text-anchor="middle">T3</text>
+                            <text class="chart-label" x="297" y="270" text-anchor="middle">T4</text>
+                            <text class="chart-label" x="408" y="270" text-anchor="middle">T5</text>
+                            <text class="chart-label" x="519" y="270" text-anchor="middle">T6</text>
+                            <text class="chart-label" x="630" y="270" text-anchor="middle">T7</text>
+                            <text class="chart-label" x="741" y="270" text-anchor="middle">CN</text>
+                            
+                            <!-- Chart line and area -->
+                            <path class="chart-area" d="M75,180 L186,120 L297,200 L408,80 L519,150 L630,100 L741,170 L741,250 L75,250 Z"></path>
+                            <path class="chart-line" d="M75,180 L186,120 L297,200 L408,80 L519,150 L630,100 L741,170"></path>
+                            
+                            <!-- Data points -->
+                            <circle class="chart-point" cx="75" cy="180" r="5"></circle>
+                            <circle class="chart-point" cx="186" cy="120" r="5"></circle>
+                            <circle class="chart-point" cx="297" cy="200" r="5"></circle>
+                            <circle class="chart-point" cx="408" cy="80" r="5"></circle>
+                            <circle class="chart-point" cx="519" cy="150" r="5"></circle>
+                            <circle class="chart-point" cx="630" cy="100" r="5"></circle>
+                            <circle class="chart-point" cx="741" cy="170" r="5"></circle>
+                        </svg>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h2>Nguồn truy cập</h2>
+                    </div>
+                    <div class="chart">
+                        <svg class="pie-chart" viewBox="0 0 250 300">
+                            <!-- Pie chart segments -->
+                            <path class="pie-segment" d="M125,100 L125,0 A100,100 0 0,1 209,45 Z" fill="#3498db"></path>
+                            <path class="pie-segment" d="M125,100 L209,45 A100,100 0 0,1 176,176 Z" fill="#2ecc71"></path>
+                            <path class="pie-segment" d="M125,100 L176,176 A100,100 0 0,1 56,145 Z" fill="#e74c3c"></path>
+                            <path class="pie-segment" d="M125,100 L56,145 A100,100 0 0,1 125,0 Z" fill="#f39c12"></path>
+                        </svg>
+                        <div class="legend">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #3498db;"></div>
+                                <span>Tìm kiếm (45%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #2ecc71;"></div>
+                                <span>Truy cập trực tiếp (25%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #e74c3c;"></div>
+                                <span>Mạng xã hội (20%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #f39c12;"></div>
+                                <span>Giới thiệu (10%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="recent-visitors">
+                <div class="recent-header">
+                    <h2>Người truy cập gần đây</h2>
+                </div>
+                <div class="visitor-list">
+                    <div class="visitor-item">
+                        <div class="visitor-avatar">NT</div>
+                        <div class="visitor-info">
+                            <div class="visitor-name">Nguyễn Thanh</div>
+                            <div class="visitor-detail">Trang sản phẩm • Thiết bị di động</div>
+                        </div>
+                        <div class="visitor-time">2 phút trước</div>
+                    </div>
+                    <div class="visitor-item">
+                        <div class="visitor-avatar">HL</div>
+                        <div class="visitor-info">
+                            <div class="visitor-name">Hoàng Linh</div>
+                            <div class="visitor-detail">Trang chủ • Máy tính</div>
+                        </div>
+                        <div class="visitor-time">15 phút trước</div>
+                    </div>
+                    <div class="visitor-item">
+                        <div class="visitor-avatar">TM</div>
+                        <div class="visitor-info">
+                            <div class="visitor-name">Trần Minh</div>
+                            <div class="visitor-detail">Trang tin tức • Máy tính bảng</div>
+                        </div>
+                        <div class="visitor-time">28 phút trước</div>
+                    </div>
+                    <div class="visitor-item">
+                        <div class="visitor-avatar">PH</div>
+                        <div class="visitor-info">
+                            <div class="visitor-name">Phạm Hương</div>
+                            <div class="visitor-detail">Trang liên hệ • Thiết bị di động</div>
+                        </div>
+                        <div class="visitor-time">42 phút trước</div>
+                    </div>
+                    <div class="visitor-item">
+                        <div class="visitor-avatar">LA</div>
+                        <div class="visitor-info">
+                            <div class="visitor-name">Lê Anh</div>
+                            <div class="visitor-detail">Trang sản phẩm • Máy tính</div>
+                        </div>
+                        <div class="visitor-time">1 giờ trước</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tin tức mới -->
+            <div class="section-header">
+                <h2>Tin tức mới</h2>
+                <a href="#" style="color: #3cc8ff; text-decoration: none;">Xem tất cả</a>
+            </div>
+            
+            <div class="certificates-container">
+                <div class="certificate-card">
+                    <div class="certificate-icon">
+                        <img src="images/ai.jpg" alt="Trí tuệ nhân tạo">
+                    </div>
+                    <div class="text">
+                        <h3 style="margin-bottom: 10px; color: #2c3e50;">Trí tuệ nhân tạo đang lên ngôi</h3>
+                        <p>Trí tuệ nhân tạo đã và đang dần phát triển mạnh ở 
+                        các lĩnh vực công nghệ. Nó sẽ thay thế con
+                        người dần dần nếu chúng ta không vương lên.</p>
+                        <a href="#" style="display: inline-block; margin-top: 10px; color: #3cc8ff; text-decoration: none;">Đọc thêm →</a>
+                    </div>
+                </div>
+                <div class="certificate-card">
+                    <div class="certificate-icon">
+                        <img src="images/scence.jpg" alt="Khoa học">
+                    </div>
+                    <div class="text">
+                        <h3 style="margin-bottom: 10px; color: #2c3e50;">Khám phá khoa học mới</h3>
+                        <p>Khoa học thật sự rất thú vị, nó
+                        đưa chúng ta đến khắp mọi thứ giới tí
+                        hơn mà chúng ta chưa từng biết đến.</p>
+                        <a href="#" style="display: inline-block; margin-top: 10px; color: #3cc8ff; text-decoration: none;">Đọc thêm →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Giới thiệu -->
+            <div class="section-header">
+                <h2>Giới thiệu</h2>
+                <a href="#" style="color: #3cc8ff; text-decoration: none;">Xem tất cả</a>
+            </div>
+            
+            <div class="books-container">
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="images/hóa học.jpg" alt="Sách 1">
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="images/trai dat.jpg" alt="Sách 2">
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="images/sinh ọc.jpg" alt="Sách 3">
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="images/vu tru.jpg" alt="Sách 4">
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="images/ảnh ls.jpg" alt="Sách 4">
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="images/hien tuong.jpg" alt="Sách 4">
+                    </div>
+                </div>
+                
+            </div>
+            <!-- </div> -->
+</body>
+</html>

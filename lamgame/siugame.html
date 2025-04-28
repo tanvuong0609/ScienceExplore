@@ -1,0 +1,308 @@
+<!DOCTYPE html>  
+<html lang="vi">  
+<head>  
+<meta charset="UTF-8" />  
+<meta name="viewport" content="width=device-width, initial-scale=1" />  
+<title>Mini Game Siêu VIP Pro</title>  
+  
+</head>  
+<!-- <link rel="stylesheet" href="siugame.css"> -->
+<link rel="stylesheet" href="semgiu.css">
+<body>  
+<header>Mini Game Siêu VIP Pro</header>  
+<main>  
+  <nav>  
+    <button class="active" data-game="guess-image">Đoán Hình Ảnh</button>  
+    <button data-game="puzzle">Đố Vui Ghép Hình</button>  
+    <button data-game="quiz">Trả Lời Câu Hỏi</button>  
+  </nav>  
+
+  <section id="guess-image" class="game-section">  
+    <div id="guess-image-container">  
+      <img id="guess-image-img" src="https://images.unsplash.com/photo-1516116216624-53e697fedbe2?auto=format&fit=crop&w=500&q=80" alt="Đoán hình" />  
+      <br />  
+      <input type="text" id="guess-input" placeholder="Nhập câu trả lời..." autocomplete="off"/>  
+      <button id="guess-btn">Đoán</button>  
+      <div id="guess-result"></div>  
+    </div>  
+  </section>  
+
+  <section id="puzzle" class="game-section" style="display:none;">  
+    <div id="puzzle-board"></div>  
+    <button id="shuffle-btn">Trộn Hình</button>  
+    <div id="puzzle-message"></div>  
+  </section>  
+
+  <section id="quiz" class="game-section" style="display:none;">  
+    <div id="quiz-container">  
+      <div id="quiz-question"></div>  
+      <div id="quiz-options"></div>  
+      <div id="quiz-result"></div>  
+    </div>  
+  </section>  
+</main>  
+
+<script>  
+// ------- Chọn game -------  
+const navButtons = document.querySelectorAll('nav button');  
+const gameSections = document.querySelectorAll('.game-section');  
+navButtons.forEach(btn => {  
+  btn.addEventListener('click', () => {  
+    navButtons.forEach(b => b.classList.remove('active'));  
+    btn.classList.add('active');  
+    const selected = btn.dataset.game;  
+    gameSections.forEach(sec => {  
+      if (sec.id === selected) sec.style.display = 'block';  
+      else sec.style.display = 'none';  
+    });  
+  });  
+});  
+
+
+// ========== ĐOÁN HÌNH ẢNH ==========  
+// const guessImage = {  
+//   imgEl: document.getElementById('guess-image-img'),  
+//   inputEl: document.getElementById('guess-input'),  
+//   btnEl: document.getElementById('guess-btn'),  
+//   resultEl: document.getElementById('guess-result'),  
+//   correctAnswer: 'muối biển',  // Ví dụ câu trả lời  
+//   revealed: false,  
+//   setup() {  
+//     this.imgEl.classList.remove('revealed');  
+//     this.inputEl.value = '';  
+//     this.resultEl.textContent = '';  
+//     this.revealed = false;  
+//   },  
+//   checkAnswer() {  
+//     const val = this.inputEl.value.trim().toLowerCase();  
+//     if (!val) return;  
+//     if (val === this.correctAnswer.toLowerCase()) {  
+//       this.resultEl.textContent = 'Chính xác! Bạn thật tuyệt vời 🎉';  
+//       this.imgEl.classList.add('revealed');  
+//       this.revealed = true;  
+//     } else {  
+//       this.resultEl.textContent = 'Sai rồi, thử lại nhé!';  
+//     }  
+//   }  
+// };  
+
+// guessImage.btnEl.addEventListener('click', () => guessImage.checkAnswer());  
+// guessImage.inputEl.addEventListener('keyup', e => {  
+//   if (e.key === 'Enter') guessImage.checkAnswer();  
+// });  
+// Mở rộng: Có thể cho người dùng click hình để bật/tắt độ sáng  
+guessImage.imgEl.addEventListener('click', () => {  
+  if (guessImage.revealed) {  
+    guessImage.imgEl.classList.remove('revealed');  
+    guessImage.resultEl.textContent = '';  
+    guessImage.inputEl.value = '';  
+    guessImage.revealed = false;  
+  }  
+});  
+
+// Khởi tạo lúc đầu  
+// guessImage.setup();  
+
+
+// ========== ĐỐ VUI GHÉP HÌNH ==========  
+// const puzzleBoard = document.getElementById('puzzle-board');  
+// const puzzleMessage = document.getElementById('puzzle-message');  
+// const shuffleBtn = document.getElementById('shuffle-btn');  
+
+// Hình dùng cho ghép (4x4) --> 16 mảnh  
+// const PUZZLE_ROWS = 4;  
+// const PUZZLE_COLS = 4;  
+// const PUZZLE_SIZE = 400; 
+// const PUZZLE_IMAGE = 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80';  
+
+// let tiles = [];  
+// let blankIndex = PUZZLE_ROWS * PUZZLE_COLS - 1; 
+
+// function createPuzzle() {  
+//   puzzleBoard.innerHTML = '';  
+//   tiles = [];  
+//   for (let i = 0; i < PUZZLE_ROWS * PUZZLE_COLS; i++) {  
+//     const tile = document.createElement('div');  
+//     tile.classList.add('puzzle-tile');  
+//     if (i === blankIndex) {  
+//       tile.style.backgroundImage = 'none';  
+//       tile.style.cursor = 'default';  
+//     } else {  
+//       tile.style.backgroundImage = `url(${PUZZLE_IMAGE})`;  
+//       // Tính background position dựa trên vị trí ảnh gốc 4x4  
+//       const row = Math.floor(i / PUZZLE_COLS);  
+//       const col = i % PUZZLE_COLS;  
+//       tile.style.backgroundPosition = `${(col * 100) / (PUZZLE_COLS - 1)}% ${(row * 100) / (PUZZLE_ROWS - 1)}%`;  
+//     }  
+//     tile.setAttribute('data-index', i);  
+//     tiles.push(tile);  
+//     puzzleBoard.appendChild(tile);  
+//   }  
+// }  
+
+// function shufflePuzzle() {  
+//   // Đảo vị trí ngẫu nhiên theo kiểu trộn hợp pháp của trò xếp hình  
+//   // Đơn giản: trộn nhiều lần di chuyển ngẫu nhiên ô trống  
+//   let moves = 1000;
+//    // số lượt di chuyển  
+//   for (let i = 0; i < moves; i++) {  
+//     let neighbors = getMovableTiles(blankIndex);  
+//     let rnd = neighbors[Math.floor(Math.random() * neighbors.length)];  
+//     swapTiles(blankIndex, rnd);  
+//     blankIndex = rnd;  
+//   }  
+//   puzzleMessage.textContent = 'Đã trộn xong, bắt đầu ghép hình nào! 🧩';  
+//   renderTiles();  
+// }  
+
+// function swapTiles(a, b) {  
+//   // swap tiles in array  
+//   const temp = tiles[a];  
+//   tiles[a] = tiles[b];  
+//   tiles[b] = temp;  
+// }  
+
+// function getMovableTiles(blankPos) {  
+//   const neighbors = [];  
+//   const row = Math.floor(blankPos / PUZZLE_COLS);  
+//   const col = blankPos % PUZZLE_COLS;  
+//   if(row > 0) neighbors.push(blankPos - PUZZLE_COLS);  
+//   if(row < PUZZLE_ROWS - 1) neighbors.push(blankPos + PUZZLE_COLS);  
+//   if(col > 0) neighbors.push(blankPos - 1);  
+//   if(col < PUZZLE_COLS - 1) neighbors.push(blankPos + 1);  
+//   return neighbors;  
+// }  
+
+// function renderTiles() {  
+//   puzzleBoard.innerHTML = '';  
+//   for(let i=0; i<tiles.length; i++){  
+//     const tile = tiles[i];  
+//     tile.setAttribute('data-index', i);  
+//     tile.style.cursor = 'grab';  
+//     puzzleBoard.appendChild(tile);  
+//   }  
+// }  
+
+// function checkSolved() {  
+//   for(let i=0; i<tiles.length; i++){  
+//     if(tiles[i].getAttribute('data-original') !== String(i) && i !== blankIndex) return false;  
+//   }  
+//   return true;  
+// }  
+
+// // Lần đầu gán data-original để check đúng  
+// function initOriginalIndices() {  
+//   for(let i=0; i<tiles.length; i++){  
+//     tiles[i].setAttribute('data-original', i);  
+//   }  
+// }  
+
+// // Xử lý khi click di chuyển ô liền kề ô trống  
+// puzzleBoard.addEventListener('click', e => {  
+//   if (!e.target.classList.contains('puzzle-tile')) return;  
+//   const clickedIndex = Number(e.target.getAttribute('data-index'));  
+//   const movable = getMovableTiles(blankIndex);  
+//   if(movable.includes(clickedIndex)){  
+//     swapTiles(blankIndex, clickedIndex);  
+//     blankIndex = clickedIndex;  
+//     renderTiles();  
+//     if(checkSolved()){  
+//       puzzleMessage.textContent = '🎉 Bạn đã hoàn thành ghép hình!';  
+//     } else {  
+//       puzzleMessage.textContent = '';  
+//     }  
+//   }  
+// });  
+
+// shuffleBtn.addEventListener('click', () => {  
+//   blankIndex = PUZZLE_ROWS * PUZZLE_COLS - 1;  
+//   createPuzzle();  
+//   initOriginalIndices();  
+//   shufflePuzzle();  
+// });  
+
+// Khởi tạo puzzle ban đầu  
+createPuzzle();  
+initOriginalIndices();  
+
+
+// ========== TRẢ LỜI CÂU HỎI ==========  
+const quizData = [  
+  {  
+    question: 'Thủ đô của Việt Nam là thành phố nào?',  
+    options: ['Hồ Chí Minh', 'Đà Nẵng', 'Hà Nội', 'Hải Phòng'],  
+    answer: 2  
+  },  
+  {  
+    question: 'Ngôn ngữ lập trình nào phổ biến nhất hiện nay?',  
+    options: ['Python', 'JavaScript', 'C++', 'Java'],  
+    answer: 1  
+  },  
+  {  
+    question: 'Đội tuyển bóng đá vô địch World Cup 2018 là đội nào?',  
+    options: ['Brazil', 'Pháp', 'Đức', 'Argentina'],  
+    answer: 1  
+  }  
+];  
+
+let currentQuizIndex = 0;  
+const quizQuestionEl = document.getElementById('quiz-question');  
+const quizOptionsEl = document.getElementById('quiz-options');  
+const quizResultEl = document.getElementById('quiz-result');  
+
+function loadQuiz(index) {  
+  quizResultEl.textContent = '';  
+  const quiz = quizData[index];  
+  quizQuestionEl.textContent = quiz.question;  
+  quizOptionsEl.innerHTML = '';  
+  quiz.options.forEach((option, i) => {  
+    const opt = document.createElement('div');  
+    opt.className = 'quiz-option';  
+    opt.textContent = option;  
+    opt.addEventListener('click', () => selectOption(i));  
+    quizOptionsEl.appendChild(opt);  
+  });  
+}  
+
+function selectOption(selected) {  
+  const quiz = quizData[currentQuizIndex];  
+  const options = quizOptionsEl.querySelectorAll('.quiz-option');  
+  options.forEach((opt, i) => {  
+    opt.removeEventListener('click', () => {});  
+    if(i === quiz.answer) {  
+      opt.classList.add('correct');  
+    }  
+    if(i === selected) {  
+      if(selected === quiz.answer){  
+        quizResultEl.textContent = 'Chính xác! 🎉';  
+      } else {  
+        opt.classList.add('wrong');  
+        quizResultEl.textContent = 'Sai rồi, đáp án đúng là: ' + quiz.options[quiz.answer];  
+      }  
+    }  
+    opt.style.cursor = 'default';  
+  });  
+  // Tự động chuyển sang câu tiếp theo sau 3s nếu còn câu  
+  if(currentQuizIndex < quizData.length - 1){  
+    setTimeout(() => {  
+      currentQuizIndex++;  
+      loadQuiz(currentQuizIndex);  
+    }, 3000);  
+  } else {  
+    setTimeout(() => {  
+      quizResultEl.textContent = 'Bạn đã hoàn thành hết câu hỏi! 👍';  
+    }, 3000);  
+  }  
+}  
+
+// Khởi tạo quiz  
+loadQuiz(currentQuizIndex);  
+
+// ------------------------
+
+
+
+</script>  
+
+</body>  
+</html>  

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò Chơi Đố Vui</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .quiz-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .options {
+            margin-bottom: 20px;
+        }
+        .option {
+            display: block;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+        .selected {
+            background-color: #3498db;
+            color: white;
+        }
+        .correct {
+            background-color: #2ecc71;
+            color: white;
+        }
+        .incorrect {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .feedback {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .progress-container {
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            background-color: #ecf0f1;
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .progress {
+            background-color: #3498db;
+            height: 10px;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        .progress-text {
+            text-align: right;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        .hide {
+            display: none;
+        }
+        .timer {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Trò Chơi Đố Vui</h1>
+        
+        <div id="intro-screen">
+            <p>Chào mừng bạn đến với trò chơi đố vui! Hãy thử thách kiến thức của mình với 10 câu hỏi trắc nghiệm.</p>
+            <p>Bạn có 30 giây để trả lời mỗi câu hỏi. Hãy cố gắng trả lời càng nhiều câu đúng càng tốt!</p>
+            <div class="button-container">
+                <button id="start-btn" class="btn">Bắt Đầu Chơi</button>
+            </div>
+        </div>
+        
+        <div id="quiz-screen" class="hide">
+            <div class="timer">Thời gian: <span id="time">30</span> giây</div>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="progress-text">Câu hỏi <span id="current-question">1</span>/<span id="total-questions">10</span></div>
+            </div>
+            
+            <div class="question" id="question-text"></div>
+            
+            <div class="options" id="options-container"></div>
+            
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="button-container">
+                <button id="next-btn" class="btn" disabled>Câu Tiếp Theo</button>
+            </div>
+        </div>
+        
+        <div id="result-screen" class="hide">
+            <div class="result">
+                <p>Bạn đã hoàn thành trò chơi!</p>
+                <p>Điểm số của bạn: <span id="score">0</span>/<span id="max-score">10</span></p>
+            </div>
+            <div class="button-container">
+                <button id="restart-btn" class="btn">Chơi Lại</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Danh sách câu hỏi
+        const questions = [
+            {
+                question: "Hà Nội là thủ đô của nước nào?",
+                options: ["Việt Nam", "Thái Lan", "Lào", "Campuchia"],
+                correctAnswer: 0
+            },
+            {
+                question: "Quả nào sau đây không phải là quả có múi?",
+                options: ["Cam", "Quýt", "Táo", "Bưởi"],
+                correctAnswer: 2
+            },
+            {
+                question: "Ngôn ngữ lập trình nào được sử dụng phổ biến nhất cho phát triển web?",
+                options: ["Java", "C++", "Python", "JavaScript"],
+                correctAnswer: 3
+            },
+            {
+                question: "Ngày Quốc khánh Việt Nam là ngày nào?",
+                options: ["30/4", "2/9", "19/5", "1/1"],
+                correctAnswer: 1
+            },
+            {
+                question: "HTML là viết tắt của cụm từ nào?",
+                options: ["Hyper Text Markup Language", "High Technology Modern Language", "Hyper Transfer Machine Learning", "Home Tool Management Language"],
+                correctAnswer: 0
+            },
+            {
+                question: "Con vật nào sau đây không thuộc họ mèo?",
+                options: ["Báo", "Sư tử", "Chó sói", "Hổ"],
+                correctAnswer: 2
+            },
+            {
+                question: "Rừng Amazon nằm chủ yếu ở quốc gia nào?",
+                options: ["Mexico", "Brazil", "Argentina", "Colombia"],
+                correctAnswer: 1
+            },
+            {
+                question: "Vịnh Hạ Long nằm ở tỉnh nào của Việt Nam?",
+                options: ["Quảng Ninh", "Hải Phòng", "Đà Nẵng", "Nha Trang"],
+                correctAnswer: 0
+            },
+            {
+                question: "Hành tinh nào được gọi là 'Hành tinh Đỏ'?",
+                options: ["Sao Thủy", "Sao Kim", "Sao Hỏa", "Sao Mộc"],
+                correctAnswer: 2
+            },
+            {
+                question: "CSS là viết tắt của cụm từ nào?",
+                options: ["Cascading Style Sheets", "Creative Style System", "Computer Style Sheets", "Colorful Style Sheets"],
+                correctAnswer: 0
+            }
+        ];
+
+        // Các biến toàn cục
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timer;
+        let timeLeft = 30;
+        let hasAnswered = false;
+
+        // Các phần tử DOM
+        const introScreen = document.getElementById('intro-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackElement = document.getElementById('feedback');
+        const currentQuestionElement = document.getElementById('current-question');
+        const totalQuestionsElement = document.getElementById('total-questions');
+        const progressElement = document.getElementById('progress');
+        const scoreElement = document.getElementById('score');
+        const maxScoreElement = document.getElementById('max-score');
+        const timeElement = document.getElementById('time');
+
+        // Thiết lập ban đầu
+        totalQuestionsElement.textContent = questions.length;
+        maxScoreElement.textContent = questions.length;
+
+        // Bắt đầu trò chơi
+        startBtn.addEventListener('click', startGame);
+        nextBtn.addEventListener('click', goToNextQuestion);
+        restartBtn.addEventListener('click', restartGame);
+
+        function startGame() {
+            introScreen.classList.add('hide');
+            quizScreen.classList.remove('hide');
+            currentQuestionIndex = 0;
+            score = 0;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            // Reset trạng thái
+            hasAnswered = false;
+            nextBtn.disabled = true;
+            feedbackElement.textContent = '';
+            timeLeft = 30;
+            timeElement.textContent = timeLeft;
+            
+            // Cập nhật tiến trình
+            currentQuestionElement.textContent = currentQuestionIndex + 1;
+            progressElement.style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
+            
+            // Hiển thị câu hỏi
+            const currentQuestion = questions[currentQuestionIndex];
+            questionText.textContent = currentQuestion.question;
+            
+            // Hiển thị các lựa chọn
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.textContent = option;
+                optionElement.addEventListener('click', () => checkAnswer(index));
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Bắt đầu đếm thời gian
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timer);
+            timer = setInterval(() => {
+                timeLeft--;
+                timeElement.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    timeUp();
+                }
+            }, 1000);
+        }
+
+        function timeUp() {
+            if (!hasAnswered) {
+                hasAnswered = true;
+                highlightCorrectAnswer();
+                feedbackElement.textContent = 'Hết thời gian! Bạn chưa chọn câu trả lời.';
+                nextBtn.disabled = false;
+            }
+        }
+
+        function checkAnswer(selectedIndex) {
+            if (hasAnswered) return;
+            
+            hasAnswered = true;
+            clearInterval(timer);
+            
+            const currentQuestion = questions[currentQuestionIndex];
+            const options = optionsContainer.querySelectorAll('.option');
+            
+            if (selectedIndex === currentQuestion.correctAnswer) {
+                options[selectedIndex].classList.add('correct');
+                feedbackElement.textContent = 'Đúng rồi! Chúc mừng bạn.';
+                score++;
+            } else {
+                options[selectedIndex].classList.add('incorrect');
+                options[currentQuestion.correctAnswer].classList.add('correct');
+                feedbackElement.textContent = 'Sai rồi! Đáp án đúng đã được đánh dấu.';
+            }
+            
+            nextBtn.disabled = false;
+        }
+
+        function highlightCorrectAnswer() {
+            const currentQuestion = questions[currentQuestionIndex];
+            const options = optionsContainer.querySelectorAll('.option');
+            options[currentQuestion.correctAnswer].classList.add('correct');
+        }
+
+        function goToNextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hide');
+            resultScreen.classList.remove('hide');
+            scoreElement.textContent = score;
+        }
+
+        function restartGame() {
+            resultScreen.classList.add('hide');
+            currentQuestionIndex = 0;
+            score = 0;
+            loadQuestion();
+            quizScreen.classList.remove('hide');
+        }
+    </script>
+</body>
+</html>

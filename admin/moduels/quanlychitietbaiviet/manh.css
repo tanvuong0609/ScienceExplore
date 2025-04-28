@@ -1,0 +1,194 @@
+:root {
+    --primary-color: #3498db;
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+    --light-gray: #f8f9fa;
+    --dark-gray: #343a40;
+    --border-color: #e0e0e0;
+    --text-color: #333;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Form styling to match the image */
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+td {
+    padding: 12px 10px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color);
+}
+
+td:first-child {
+    font-weight: 600;
+    width: 160px;
+    color: var(--dark-gray);
+}
+
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+input[type="text"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+input[type="file"] {
+    padding: 5px;
+    background: #f9f9f9;
+}
+
+input[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: all 0.2s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #2980b9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling */
+.btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Image preview styling */
+.image-preview img {
+    max-width: 150px;
+    max-height: 100px;
+    border: 1px solid #ddd;
+    padding: 3px;
+    background: #fff;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+/* Back link styling */
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.back-link:hover {
+    background-color: #f0f7fd;
+    text-decoration: none;
+}
+
+/* Heading styling */
+h1, h2, p.heading {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e9ecef;
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    td {
+        display: block;
+        width: 100%;
+        padding: 8px 0;
+    }
+    
+    td:first-child {
+        width: 100%;
+        padding-bottom: 5px;
+        font-weight: 500;
+    }
+    
+    input[type="submit"] {
+        width: 100%;
+    }
+}
+
+/* Additional styling from the image */
+.action-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-right: 10px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.action-links a:hover {
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+/* Delete button styling */
+a[href*="delete"] {
+    color: var(--danger-color);
+}
+
+a[href*="delete"]:hover {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+/* Edit button styling */
+a[href*="sua"] {
+    color: var(--warning-color);
+}
+
+a[href*="sua"]:hover {
+    background-color: var(--warning-color);
+    color: white;
+}

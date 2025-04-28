@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trò chơi Đố Vui</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f0f8ff;
+    }
+
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: opacity 0.5s ease;
+    }
+
+    #quiz-question {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .quiz-option {
+      background-color: #e0e0e0;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .quiz-option:hover {
+      background-color: #d0d0d0;
+    }
+
+    .correct {
+      background-color: #a5d6a7 !important;
+    }
+
+    .wrong {
+      background-color: #ef9a9a !important;
+    }
+
+    #quiz-result, #quiz-score, #quiz-timer {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    #quiz-controls {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #1976d2;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1565c0;
+    }
+
+    #quiz-summary {
+      display: none;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container" id="quiz-container">
+    <div id="quiz-question"></div>
+    <div id="quiz-options"></div>
+    <div id="quiz-result"></div>
+    <div id="quiz-score">Điểm: 0</div>
+    <div id="quiz-timer">Thời gian: 15s</div>
+
+    <div id="quiz-controls">
+      <button onclick="prevQuestion()">Câu trước</button>
+      <button onclick="nextQuestion()">Câu tiếp</button>
+    </div>
+
+    <div id="quiz-summary"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      { question: 'Thủ đô của Việt Nam là thành phố nào?', options: ['Hồ Chí Minh', 'Đà Nẵng', 'Hà Nội', 'Hải Phòng'], answer: 2 },
+      { question: 'Ngôn ngữ lập trình nào phổ biến nhất hiện nay?', options: ['Python', 'JavaScript', 'C++', 'Java'], answer: 1 },
+      { question: 'Ngọn núi cao nhất thế giới là gì?', options: ['K2', 'Everest', 'Kilimanjaro', 'Fuji'], answer: 1 },
+      { question: 'Hành tinh nào gần Mặt Trời nhất?', options: ['Venus', 'Mars', 'Mercury', 'Jupiter'], answer: 2 },
+      { question: 'Đội tuyển vô địch World Cup 2018 là đội nào?', options: ['Brazil', 'Pháp', 'Đức', 'Argentina'], answer: 1 }
+    ];
+
+    let currentQuizIndex = 0;
+    let score = 0;
+    let timer;
+    let timeLeft = 15;
+    let isAnswered = false;
+
+    const quizQuestionEl = document.getElementById('quiz-question');
+    const quizOptionsEl = document.getElementById('quiz-options');
+    const quizResultEl = document.getElementById('quiz-result');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const quizTimerEl = document.getElementById('quiz-timer');
+    const quizSummaryEl = document.getElementById('quiz-summary');
+    const quizContainerEl = document.getElementById('quiz-container');
+
+    function loadQuiz(index) {
+      clearInterval(timer);
+      timeLeft = 30;
+      updateTimer();
+      timer = setInterval(countdown, 1000);
+      isAnswered = false;
+      quizResultEl.textContent = '';
+      quizSummaryEl.style.display = 'none';
+      quizContainerEl.style.opacity = 0;
+
+      setTimeout(() => {
+        const quiz = quizData[index];
+        quizQuestionEl.textContent = quiz.question;
+        quizOptionsEl.innerHTML = '';
+        quiz.options.forEach((option, i) => {
+          const opt = document.createElement('div');
+          opt.className = 'quiz-option';
+          opt.textContent = option;
+          opt.addEventListener('click', () => selectOption(i));
+          quizOptionsEl.appendChild(opt);
+        });
+        quizContainerEl.style.opacity = 1;
+      }, 300);
+    }
+
+    function selectOption(selected) {
+      if (isAnswered) return;
+      isAnswered = true;
+      clearInterval(timer);
+
+      const quiz = quizData[currentQuizIndex];
+      const options = quizOptionsEl.querySelectorAll('.quiz-option');
+
+      options.forEach((opt, i) => {
+        opt.style.cursor = 'default';
+        if (i === quiz.answer) opt.classList.add('correct');
+        if (i === selected && i !== quiz.answer) opt.classList.add('wrong');
+      });
+
+      if (selected === quiz.answer) {
+        quizResultEl.textContent = 'Chính xác! 🎉';
+        score++;
+      } else if (selected === -1) {
+        quizResultEl.textContent = 'Hết giờ! Đáp án đúng là: ' + quiz.options[quiz.answer];
+      } else {
+        quizResultEl.textContent = 'Sai rồi, đáp án đúng là: ' + quiz.options[quiz.answer];
+      }
+
+      quizScoreEl.textContent = 'Điểm: ' + score;
+
+      setTimeout(() => {
+        if (currentQuizIndex < quizData.length - 1) {
+          currentQuizIndex++;
+          loadQuiz(currentQuizIndex);
+        } else {
+          showSummary();
+        }
+      }, 3000);
+    }
+
+    function nextQuestion() {
+      if (currentQuizIndex < quizData.length - 1) {
+        currentQuizIndex++;
+        loadQuiz(currentQuizIndex);
+      } else {
+        showSummary();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuizIndex > 0) {
+        currentQuizIndex--;
+        loadQuiz(currentQuizIndex);
+      } else {
+        alert("Đây là câu đầu tiên.");
+      }
+    }
+
+    function countdown() {
+      timeLeft--;
+      updateTimer();
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        selectOption(-1); // hết giờ, không chọn gì
+      }
+    }
+
+    function updateTimer() {
+      quizTimerEl.textContent = 'Thời gian: ' + timeLeft + 's';
+    }
+
+    function showSummary() {
+      quizSummaryEl.style.display = 'block';
+      quizSummaryEl.textContent = `🎉 Trò chơi kết thúc! Bạn đã trả lời đúng ${score}/${quizData.length} câu và đạt ${score} điểm.`;
+    }
+
+    loadQuiz(currentQuizIndex);
+  </script>
+
+</body>
+</html>

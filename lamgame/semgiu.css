@@ -1,0 +1,210 @@
+ 
+  * {  
+    box-sizing: border-box;  
+  }  
+  body {  
+    background: linear-gradient(135deg, #6a11cb, #2575fc);  
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    padding: 0;  
+    margin: 0;  
+    color: #fff;  
+  }  
+  header {  
+    text-align: center;  
+    padding: 1rem;  
+    font-size: 2rem;  
+    font-weight: 700;  
+    letter-spacing: 1.5px;  
+    text-shadow: 2px 2px 4px #00000088;  
+  }  
+  main {  
+    max-width: 800px;  
+    margin: 1rem auto;  
+    background: #1a1a1add;  
+    border-radius: 10px;  
+    padding: 1rem 2rem 3rem;  
+    box-shadow: 0 8px 20px #000000cc;  
+  }  
+  nav {  
+    display: flex;  
+    justify-content: center;  
+    margin-bottom: 1rem;  
+    gap: 1rem;  
+  }  
+  nav button {  
+    background: #3a3a3a;  
+    border: none;  
+    border-radius: 25px;  
+    padding: 0.5rem 1.5rem;  
+    color: #ddd;  
+    font-size: 1rem;  
+    cursor: pointer;  
+    transition: background 0.3s ease;  
+    box-shadow: 0 4px 10px #000000aa;  
+  }  
+  nav button:hover, nav button.active {  
+    background: #ffdd2a;  
+    color: #111;  
+    font-weight: 700;  
+  }  
+  section.game-section {  
+    min-height: 400px;  
+  }  
+
+  /* Đoán hình ảnh */  
+  #guess-image-container {  
+    text-align: center;  
+  }  
+  #guess-image {  
+    max-width: 300px;  
+    box-shadow: 0 0 15px #ffdd2a;  
+    border-radius: 10px;  
+    filter: brightness(0.6);  
+    transition: filter 0.5s ease;  
+    cursor: pointer;  
+    margin-bottom: 1rem;  
+  }  
+  #guess-image.revealed {  
+    filter: brightness(1);  
+  }  
+  #guess-input {  
+    padding: 0.5rem 1rem;  
+    font-size: 1.1rem;  
+    border-radius: 8px;  
+    border: none;  
+    outline: none;  
+    margin-right: 0.5rem;  
+  }  
+  #guess-btn {  
+    background: #ffdd2a;  
+    border: none;  
+    padding: 0.5rem 1rem;  
+    border-radius: 8px;  
+    font-weight: 700;  
+    cursor: pointer;  
+    transition: background 0.3s ease;  
+  }  
+  #guess-btn:hover {  
+    background: #e6c517;  
+  }  
+  #guess-result {  
+    margin-top: 1rem;  
+    font-size: 1.2rem;  
+    font-weight: 700;  
+    min-height: 2em;  
+  }  
+
+  /* Đố vui ghép hình */  
+  #puzzle-board {  
+    width: 320px;  
+    height: 320px;  
+    margin: 0 auto;  
+    display: grid;  
+    grid-template-columns: repeat(4, 1fr);  
+    grid-template-rows: repeat(4, 1fr);  
+    gap: 2px;  
+    border-radius: 10px;  
+    box-shadow: 0 0 20px #ffdd2abb inset;  
+    background-color: #222;  
+  }  
+  .puzzle-tile {  
+    background-size: 400% 400%;  
+    background-position: center;  
+    cursor: grab;  
+    border-radius: 6px;  
+    transition: box-shadow 0.3s;  
+  }  
+  .puzzle-tile.dragging {  
+    opacity: 0.6;  
+    box-shadow: 0 0 20px #ffdd2a;  
+  }  
+  #puzzle-message {  
+    text-align: center;  
+    margin-top: 1rem;  
+    font-weight: 700;  
+    font-size: 1.2rem;  
+    color: #ffdd2a;  
+    min-height: 2em;  
+  }  
+  #shuffle-btn {  
+    display: block;  
+    margin: 1rem auto 0 auto;  
+    background: #ffdd2a;  
+    color: #000;  
+    border: none;  
+    padding: 0.6rem 1.5rem;  
+    font-weight: 700;  
+    font-size: 1rem;  
+    border-radius: 10px;  
+    cursor: pointer;  
+    box-shadow: 0 0 15px #ffdd2a;  
+    transition: background 0.3s ease;  
+  }  
+  #shuffle-btn:hover {  
+    background: #e6c517;  
+  }  
+
+  /* Trả lời câu hỏi */  
+  #quiz-container {  
+    max-width: 600px;  
+    margin: 0 auto;  
+  }  
+  #quiz-question {  
+    font-size: 1.4rem;  
+    font-weight: 700;  
+    margin-bottom: 1rem;  
+    text-align: center;  
+    text-shadow: 0 0 5px #ffdd2a;  
+  }  
+  .quiz-option {  
+    background: #3a3a3a;  
+    margin: 0.4rem 0;  
+    padding: 0.8rem 1rem;  
+    border-radius: 12px;  
+    cursor: pointer;  
+    transition: background 0.3s ease;  
+    font-weight: 600;  
+    user-select: none;  
+  }  
+  .quiz-option:hover {  
+    background: #ffdd2a;  
+    color: #111;  
+  }  
+  .quiz-option.correct {  
+    background: #22c55e !important;  
+    color: white;  
+    font-weight: 700;  
+  }  
+  .quiz-option.wrong {  
+    background: #ef4444 !important;  
+    color: white;  
+  }  
+  #quiz-result {  
+    margin-top: 1rem;  
+    font-size: 1.3rem;  
+    text-align: center;  
+    font-weight: 700;  
+    min-height: 2em;  
+  }  
+
+  /* Responsive */  
+  @media (max-width: 480px) {  
+    main {  
+      padding: 1rem;  
+      margin: 0.5rem;  
+    }  
+    #puzzle-board {  
+      width: 280px;  
+      height: 280px;  
+    }  
+    #guess-image {  
+      max-width: 100%;  
+    }  
+    nav {  
+      flex-wrap: wrap;  
+    }  
+    nav button {  
+      flex: 1 1 100%;  
+      margin-bottom: 0.5rem;  
+    }  
+  }  

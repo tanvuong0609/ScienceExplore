@@ -1,0 +1,171 @@
+
+
+/* Headings */
+h1, p.heading {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e9ecef;
+    font-weight: 600;
+}
+
+p.heading {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+th, td {
+    padding: 14px 16px;
+    text-align: left;
+}
+
+th {
+    background-color: #3498db;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f6fa;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+tr:hover {
+    background-color: #e8f4fc;
+}
+
+/* Links & Buttons */
+.action-links a, td a {
+    color: #3498db;
+    text-decoration: none;
+    margin-right: 10px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.action-links a:hover, td a:hover {
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: #2ecc71;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #27ae60;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Thumbnails */
+.thumbnail, td img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #e0e0e0;
+    padding: 3px;
+    background-color: #fff;
+    transition: transform 0.2s ease;
+}
+
+td img:hover, .thumbnail:hover {
+    transform: scale(1.05);
+}
+
+/* Alert Messages */
+.alert, div[style*="background-color: #d4edda"] {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border-left: 4px solid #2ecc71;
+    background-color: #d4edda !important;
+    color: #155724 !important;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    th, td {
+        padding: 10px 12px;
+    }
+    
+    h1, p.heading {
+        font-size: 20px;
+    }
+    
+    .action-links a, td a {
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+
+/* Delete Action Styling */
+a[href*="xuly.php"]:last-child, a[href*="delete"] {
+    color: #e74c3c;
+}
+
+a[href*="xuly.php"]:last-child:hover, a[href*="delete"]:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Edit Action Styling */
+a[href*="sua"]:last-child {
+    color: #f39c12;
+}
+
+a[href*="sua"]:last-child:hover {
+    background-color: #f39c12;
+    color: white;
+}
+
+/* View Detail Action Styling */
+a[href*="chitiet"]:first-child {
+    color: #3498db;
+}
+
+a[href*="chitiet"]:first-child:hover {
+    /* background-color: #3498db; */
+    color: white;
+}

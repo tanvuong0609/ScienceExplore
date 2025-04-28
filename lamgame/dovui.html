@@ -1,0 +1,929 @@
+<!DOCTYPE html>  
+<html lang="vi">  
+<head>  
+<meta charset="UTF-8" />  
+<meta name="viewport" content="width=device-width, initial-scale=1" />  
+<title>Mini Game Siêu VIP Pro Ultimate</title>  
+<style>  
+  * {  
+    box-sizing: border-box;  
+  }  
+  body {  
+    background: linear-gradient(135deg, #6a11cb, #2575fc);  
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    padding: 0;  
+    margin: 0;  
+    color: #fff;
+    min-height: 100vh;
+  }  
+  header {  
+    text-align: center;  
+    padding: 1rem;  
+    font-size: 2rem;  
+    font-weight: 700;  
+    letter-spacing: 1.5px;  
+    text-shadow: 2px 2px 4px #00000088;
+    position: relative;
+  } 
+  .vip-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #111;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  main {  
+    max-width: 800px;  
+    margin: 1rem auto;  
+    background: #1a1a1add;  
+    border-radius: 10px;  
+    padding: 1rem 2rem 3rem;  
+    box-shadow: 0 8px 20px #000000cc;  
+  }  
+  nav {  
+    display: flex;  
+    justify-content: center;  
+    margin-bottom: 1rem;  
+    gap: 1rem;
+    flex-wrap: wrap;
+  }  
+  nav button {  
+    background: #3a3a3a;  
+    border: none;  
+    border-radius: 25px;  
+    padding: 0.5rem 1.2rem;  
+    color: #ddd;  
+    font-size: 1rem;  
+    cursor: pointer;  
+    transition: all 0.3s ease;  
+    box-shadow: 0 4px 10px #000000aa;  
+  }  
+  nav button:hover, nav button.active {  
+    background: #ffdd2a;  
+    color: #111;  
+    font-weight: 700;
+    transform: translateY(-2px);
+  }  
+  section.game-section {  
+    min-height: 400px;
+    animation: fadeIn 0.5s ease-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Theme selector */
+  .theme-selector {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.7);
+    padding: 10px 15px;
+    border-radius: 20px;
+    z-index: 100;
+  }
+  .theme-selector select {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  /* Points display */
+  .points-display {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.7);
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    z-index: 100;
+  }
+  .point-animation {
+    position: fixed;
+    color: #ffdd2a;
+    font-weight: bold;
+    z-index: 101;
+    pointer-events: none;
+    animation: floatUp 1.5s ease-out forwards;
+  }
+  @keyframes floatUp {
+    0% { opacity: 0; transform: translateY(0); }
+    20% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-50px); }
+  }
+
+  /* Progress bar */
+  .progress-container {
+    width: 100%;
+    background-color: #333;
+    border-radius: 15px;
+    margin: 1rem 0;
+    overflow: hidden;
+  }
+  .progress-bar {
+    width: 0%;
+    height: 12px;
+    background: linear-gradient(90deg, #ffdd2a, #ff9f1a);
+    border-radius: 15px;
+    transition: width 0.5s ease;
+  }
+  .level-indicator {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+
+  /* Game Menu */
+  .game-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .game-card {
+    background: rgba(0,0,0,0.4);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+  .game-card:hover {
+    transform: translateY(-5px);
+    border-color: #ffdd2a;
+    box-shadow: 0 0 15px rgba(255, 221, 42, 0.5);
+  }
+  .game-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 2px solid #ffdd2a;
+  }
+  .game-card h3 {
+    margin: 5px 0;
+    color: #ffdd2a;
+  }
+  .game-card p {
+    font-size: 0.9rem;
+    color: #ddd;
+  }
+  .game-difficulty {
+    margin-top: 10px;
+    font-size: 0.8rem;
+  }
+  .stars {
+    color: #ffdd2a;
+  }
+
+  /* Đoán hình ảnh */  
+  #guess-image-container {  
+    text-align: center;  
+  }  
+  #guess-image-img {  
+    max-width: 300px;  
+    box-shadow: 0 0 15px #ffdd2a;  
+    border-radius: 10px;  
+    filter: brightness(0.6) blur(3px);  
+    transition: all 0.5s ease;  
+    cursor: pointer;  
+    margin-bottom: 1rem;  
+  }  
+  #guess-image-img.revealed {  
+    filter: brightness(1) blur(0);  
+  }
+  .guess-control {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  .hint-btn {
+    background: #3a3a3a;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    color: #ddd;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .hint-btn:hover {
+    background: #ff9f1a;
+    color: #111;
+  }
+  #guess-input {  
+    padding: 0.5rem 1rem;  
+    font-size: 1.1rem;  
+    border-radius: 8px;  
+    border: none;  
+    outline: none;  
+    margin-right: 0.5rem;
+    width: 60%;
+    max-width: 300px;
+  }  
+  #guess-btn {  
+    background: #ffdd2a;  
+    border: none;  
+    padding: 0.5rem 1rem;  
+    border-radius: 8px;  
+    font-weight: 700;  
+    cursor: pointer;  
+    transition: background 0.3s ease;  
+  }  
+  #guess-btn:hover {  
+    background: #e6c517;  
+  }  
+  #guess-result {  
+    margin-top: 1rem;  
+    font-size: 1.2rem;  
+    font-weight: 700;  
+    min-height: 2em;  
+  }
+  #guess-hint {
+    margin-top: 0.5rem;
+    font-style: italic;
+    color: #ffdd2a;
+    min-height: 1.5em;
+  }
+  .category-badge {
+    display: inline-block;
+    background: #ff9f1a;
+    color: #111;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  #guess-timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #ffdd2a;
+  }
+
+  /* Đố vui ghép hình */  
+  #puzzle-container {
+    text-align: center;
+  }
+  #puzzle-board {  
+    width: 320px;  
+    height: 320px;  
+    margin: 0 auto;  
+    display: grid;  
+    grid-template-columns: repeat(4, 1fr);  
+    grid-template-rows: repeat(4, 1fr);  
+    gap: 2px;  
+    border-radius: 10px;  
+    box-shadow: 0 0 20px #ffdd2aaa inset;  
+    background-color: #222;  
+  }  
+  .puzzle-tile {  
+    background-size: 400% 400%;  
+    background-position: center;  
+    cursor: grab;  
+    border-radius: 6px;  
+    transition: all 0.3s;
+    position: relative;
+  }  
+  .puzzle-tile.dragging {  
+    opacity: 0.6;  
+    box-shadow: 0 0 20px #ffdd2a;  
+  }
+  .puzzle-tile:hover {
+    transform: scale(0.95);
+  }
+  .puzzle-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 1rem 0;
+  }
+  #puzzle-message {  
+    text-align: center;  
+    margin-top: 1rem;  
+    font-weight: 700;  
+    font-size: 1.2rem;  
+    color: #ffdd2a;  
+    min-height: 2em;  
+  }  
+  #shuffle-btn, #preview-btn, #difficulty-btn {  
+    background: #ffdd2a;  
+    color: #000;  
+    border: none;  
+    padding: 0.6rem 1.5rem;  
+    font-weight: 700;  
+    font-size: 1rem;  
+    border-radius: 10px;  
+    cursor: pointer;  
+    box-shadow: 0 0 15px rgba(255, 221, 42, 0.3);  
+    transition: all 0.3s ease;  
+  }  
+  #shuffle-btn:hover, #preview-btn:hover, #difficulty-btn:hover {  
+    background: #e6c517;
+    transform: translateY(-2px);
+  }
+  #puzzle-timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #ffdd2a;
+  }
+  #puzzle-preview {
+    max-width: 150px;
+    border-radius: 10px;
+    border: 2px solid #ffdd2a;
+    margin: 0 auto 15px auto;
+    display: none;
+  }
+
+  /* Trả lời câu hỏi */  
+  #quiz-container {  
+    max-width: 600px;  
+    margin: 0 auto;  
+  }
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .quiz-progress {
+    font-size: 1.1rem;
+    color: #ffdd2a;
+  }
+  .quiz-category {
+    display: inline-block;
+    background: #ff9f1a;
+    color: #111;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+  #quiz-question {  
+    font-size: 1.4rem;  
+    font-weight: 700;  
+    margin-bottom: 1rem;  
+    text-align: center;  
+    text-shadow: 0 0 5px rgba(255, 221, 42, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.3);
+  }  
+  .quiz-option {  
+    background: #3a3a3a;  
+    margin: 0.6rem 0;  
+    padding: 0.8rem 1rem;  
+    border-radius: 12px;  
+    cursor: pointer;  
+    transition: all 0.3s ease;  
+    font-weight: 600;  
+    user-select: none;
+    display: flex;
+    align-items: center;
+  }
+  .option-letter {
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  .quiz-option:hover {  
+    background: #ffdd2a;  
+    color: #111;
+    transform: translateX(5px);
+  }  
+  .quiz-option.correct {  
+    background: #22c55e !important;  
+    color: white;  
+    font-weight: 700;  
+  }  
+  .quiz-option.wrong {  
+    background: #ef4444 !important;  
+    color: white;  
+  }  
+  #quiz-result {  
+    margin-top: 1rem;  
+    font-size: 1.3rem;  
+    text-align: center;  
+    font-weight: 700;  
+    min-height: 2em;  
+  }
+  #quiz-explanation {
+    margin-top: 1rem;
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    font-style: italic;
+    display: none;
+  }
+  #quiz-timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #ffdd2a;
+  }
+
+  /* Memory Game */
+  #memory-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .memory-card {
+    height: 100px;
+    background: #3a3a3a;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    position: relative;
+  }
+  .memory-card.flipped {
+    transform: rotateY(180deg);
+  }
+  .memory-card .front, .memory-card .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+  }
+  .memory-card .front {
+    background: linear-gradient(45deg, #ffdd2a, #ff9f1a);
+    color: #111;
+    transform: rotateY(180deg);
+  }
+  .memory-card .back {
+    background: #3a3a3a;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffdd2a' fill-opacity='0.2' fill-rule='evenodd'%3E%3Cpath d='M0 20L20 0v20L0 40z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  #memory-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    color: #ffdd2a;
+  }
+  #memory-timer, #memory-pairs {
+    font-weight: bold;
+  }
+  #memory-message {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #ffdd2a;
+    min-height: 2em;
+  }
+  #memory-difficulty {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  #memory-difficulty button {
+    background: #3a3a3a;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 0 5px;
+    border-radius: 8px;
+    color: #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  #memory-difficulty button:hover, #memory-difficulty button.active {
+    background: #ffdd2a;
+    color: #111;
+  }
+
+  /* Word Scramble */
+  #word-scramble {
+    text-align: center;
+  }
+  #scrambled-word {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 5px;
+    margin: 20px 0;
+    color: #ffdd2a;
+    text-shadow: 0 0 15px rgba(255, 221, 42, 0.6);
+  }
+  .word-letter {
+    display: inline-block;
+    background: #3a3a3a;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+  }
+  .word-letter:hover {
+    transform: translateY(-5px);
+    background: #ff9f1a;
+    color: #111;
+  }
+  #word-input {
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    margin-right: 10px;
+    width: 60%;
+    max-width: 300px;
+  }
+  #word-submit {
+    background: #ffdd2a;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  #word-submit:hover {
+    background: #e6c517;
+    transform: translateY(-2px);
+  }
+  #word-hint {
+    margin-top: 20px;
+    font-style: italic;
+    color: #ffdd2a;
+    min-height: 1.5em;
+  }
+  #word-timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #ffdd2a;
+  }
+  #word-category {
+    display: inline-block;
+    background: #ff9f1a;
+    color: #111;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  #word-message {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    min-height: 2em;
+  }
+  .word-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .word-btn {
+    background: #3a3a3a;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    color: #ddd;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .word-btn:hover {
+    background: #ff9f1a;
+    color: #111;
+  }
+
+  /* Home Screen */
+  #home {
+    text-align: center;
+  }
+  .welcome-title {
+    font-size: 2rem;
+    color: #ffdd2a;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 221, 42, 0.5);
+  }
+  .welcome-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #ddd;
+  }
+  .home-stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 30px 0;
+  }
+  .stat-card {
+    background: rgba(0,0,0,0.3);
+    padding: 15px;
+    border-radius: 10px;
+    min-width: 120px;
+  }
+  .stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffdd2a;
+  }
+  .stat-label {
+    font-size: 0.9rem;
+    color: #ddd;
+  }
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+    border: 3px solid #ffdd2a;
+    box-shadow: 0 0 15px rgba(255, 221, 42, 0.5);
+    background: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #ffdd2a;
+  }
+
+  /* Achievements */
+  .achievements {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+  }
+  .achievement {
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+  .achievement.unlocked {
+    border-color: #ffdd2a;
+    box-shadow: 0 0 15px rgba(255, 221, 42, 0.3);
+  }
+  .achievement-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    opacity: 0.5;
+  }
+  .achievement.unlocked .achievement-icon {
+    color: #ffdd2a;
+    opacity: 1;
+  }
+  .achievement-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .achievement-description {
+    font-size: 0.8rem;
+    color: #aaa;
+  }
+  .achievement.unlocked .achievement-description {
+    color: #ddd;
+  }
+
+  /* Responsive */  
+  @media (max-width: 480px) {  
+    main {  
+      padding: 1rem;  
+      margin: 0.5rem;  
+    }  
+    #puzzle-board {  
+      width: 280px;  
+      height: 280px;  
+    }  
+    #guess-image-img {  
+      max-width: 100%;  
+    }  
+    nav {  
+      flex-wrap: wrap;  
+    }  
+    nav button {  
+      flex: 1 1 40%;  
+      margin-bottom: 0.5rem;  
+    }
+    .game-menu {
+      grid-template-columns: 1fr 1fr;
+    }
+    #scrambled-word {
+      font-size: 1.8rem;
+      letter-spacing: 3px;
+    }
+    .word-letter {
+      padding: 8px 10px;
+      margin: 0 3px;
+    }
+  }
+</style>  
+</head>  
+<body>  
+<header>
+  <!-- Mini Game Siêu VIP Pro Ultimate
+  <div class="vip-badge">ULTIMATE VIP</div>
+</header>  
+<div class="points-display">🏆 Điểm: <span id="points-value">0</span></div>
+<div class="theme-selector">
+  <select id="theme-select">
+    <option value="default">Giao diện mặc định</option>
+    <option value="dark">Đêm tối</option>
+    <option value="neon">Neon</option>
+    <option value="tropical">Nhiệt đới</option>
+  </select>
+</div>
+
+<main>  
+  <div class="progress-container">
+    <div class="progress-bar" id="level-progress"></div>
+  </div>
+  <div class="level-indicator">
+    <span>Cấp độ: <span id="level-value">1</span></span>
+    <span id="progress-text">0/100 XP</span>
+  </div>
+
+  <nav>  
+    <button data-game="home" class="active">Trang Chủ</button>
+    <button data-game="guess-image">Đoán Hình</button>  
+    <button data-game="puzzle">Ghép Hình</button>  
+    <button data-game="quiz">Câu Hỏi</button>  
+    <button data-game="memory">Trí Nhớ</button>
+    <button data-game="word-scramble">Đảo Chữ</button>
+  </nav>   -->
+
+  <!-- Home Screen -->
+  <!-- <section id="home" class="game-section">
+    <h2 class="welcome-title">Chào mừng đến với Mini Game VIP Pro!</h2>
+    <p class="welcome-subtitle">Hãy chọn một trò chơi để bắt đầu thử thách</p>
+    
+    <div class="avatar">👑</div>
+    
+    <div class="home-stats">
+      <div class="stat-card">
+        <div class="stat-value" id="home-points">0</div>
+        <div class="stat-label">Điểm số</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="home-level">1</div>
+        <div class="stat-label">Cấp độ</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="home-games">0</div>
+        <div class="stat-label">Trò chơi</div>
+      </div>
+    </div>
+    
+    <div class="game-menu">
+      <div class="game-card" data-game="guess-image">
+        <img src="/api/placeholder/100/100" alt="Đoán hình">
+        <h3>Đoán Hình</h3>
+        <p>Nhìn hình mờ và đoán đúng nội dung</p>
+        <div class="game-difficulty">Độ khó: <span class="stars">★★☆</span></div>
+      </div>
+      <div class="game-card" data-game="puzzle">
+        <img src="/api/placeholder/100/100" alt="Ghép hình">
+        <h3>Ghép Hình</h3>
+        <p>Xếp các mảnh ghép về đúng vị trí</p>
+        <div class="game-difficulty">Độ khó: <span class="stars">★★★</span></div>
+      </div>
+      <div class="game-card" data-game="quiz">
+        <img src="/api/placeholder/100/100" alt="Câu đố">
+        <h3>Câu Hỏi</h3>
+        <p>Trả lời các câu hỏi đa lĩnh vực</p>
+        <div class="game-difficulty">Độ khó: <span class="stars">★★☆</span></div>
+      </div>
+      <div class="game-card" data-game="memory">
+        <img src="/api/placeholder/100/100" alt="Trí nhớ">
+        <h3>Trí Nhớ</h3>
+        <p>Tìm các cặp thẻ bài giống nhau</p>
+        <div class="game-difficulty">Độ khó: <span class="stars">★☆☆</span></div>
+      </div>
+      <div class="game-card" data-game="word-scramble">
+        <img src="/api/placeholder/100/100" alt="Đảo chữ">
+        <h3>Đảo Chữ</h3>
+        <p>Sắp xếp các chữ cái bị xáo trộn</p>
+        <div class="game-difficulty">Độ khó: <span class="stars">★★☆</span></div>
+      </div>
+    </div>
+    
+    <h3 style="margin-top: -->
+    <header>Mini Game Siêu VIP Pro Ultimate  
+        <div class="vip-badge">VIP</div>  
+      </header>  
+      <main>  
+        <section id="quiz-container" class="game-section">  
+          <div class="quiz-header">  
+            <div class="quiz-progress">Câu <span id="quiz-current">1</span>/<span id="quiz-total">3</span></div>  
+            <div class="quiz-category">Khoa học</div>  
+          </div>  
+          <div id="quiz-question">Câu hỏi sẽ hiển thị ở đây</div>  
+          <div id="quiz-options"></div>  
+          <div id="quiz-result"></div>  
+        </section>  
+      </main>
+
+      <script>  
+        const questions = [  
+          {  
+            question: "Trái đất quay quanh Mặt Trời trong bao lâu?",  
+            options: ["24 giờ", "365 ngày", "12 tháng", "30 ngày"],  
+            answer: 1  
+          },  
+          {  
+            question: "Nước sôi ở nhiệt độ nào?",  
+            options: ["50°C", "90°C", "100°C", "110°C"],  
+            answer: 2  
+          },  
+          {  
+            question: "Nguyên tử nhỏ nhất là gì?",  
+            options: ["Oxy", "Hydro", "Nitơ", "Cacbon"],  
+            answer: 1  
+          }  
+        ];  
+    
+        let currentQuestion = 0;  
+        const quizTotal = document.getElementById("quiz-total");  
+        const quizCurrent = document.getElementById("quiz-current");  
+        const quizQuestion = document.getElementById("quiz-question");  
+        const quizOptions = document.getElementById("quiz-options");  
+        const quizResult = document.getElementById("quiz-result");  
+    
+        quizTotal.textContent = questions.length;  
+    
+        function loadQuestion() {  
+          const q = questions[currentQuestion];  
+          quizCurrent.textContent = currentQuestion + 1;  
+          quizQuestion.textContent = q.question;  
+          quizOptions.innerHTML = "";  
+          quizResult.textContent = "";  
+    
+          q.options.forEach((opt, idx) => {  
+            const btn = document.createElement("div");  
+            btn.classList.add("quiz-option");  
+            btn.textContent = opt;  
+            btn.addEventListener("click", () => checkAnswer(idx, btn));  
+            quizOptions.appendChild(btn);  
+          });  
+        }  
+    
+        function checkAnswer(selected, btnElement) {  
+          const correct = questions[currentQuestion].answer;  
+          const options = document.querySelectorAll(".quiz-option");  
+    
+          options.forEach((opt, idx) => {  
+            opt.classList.remove("correct", "wrong");  
+            opt.style.pointerEvents = "none";  
+            if (idx === correct) opt.classList.add("correct");  
+            else if (idx === selected) opt.classList.add("wrong");  
+          });  
+    
+          quizResult.textContent = selected === correct ? "✅ Chính xác!" : "❌ Sai rồi!";  
+    
+          setTimeout(() => {  
+            currentQuestion++;  
+            if (currentQuestion < questions.length) {  
+              loadQuestion();  
+            } else {  
+              quizQuestion.textContent = "🎉 Bạn đã hoàn thành trò chơi!";  
+              quizOptions.innerHTML = "";  
+              quizResult.textContent = "";  
+            }  
+          }, 1500);  
+        }  
+    
+        loadQuestion();  
+      </script>  
+    </body>  
+    </html>

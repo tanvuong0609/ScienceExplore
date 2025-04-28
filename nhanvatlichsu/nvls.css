@@ -1,0 +1,119 @@
+body {
+    font-family: "Times New Roman", sans-serif;
+    line-height: 1.6;
+    background-color: #fff;
+    padding: 20px;
+    color: #333;
+    font-size: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+}
+h3 {
+    color: #007bff;
+    font-size: 33px;
+    font-weight: bold;
+}
+h2 {
+    color: #0a9e82;
+    font-size: 22px;
+    font-weight: bold;
+}
+.image-container img {
+    width: 100%;
+
+    border-radius: 8px;
+}
+.indam {
+    font-size: 28px;
+}
+
+
+.ghichu1{
+    text-align: center;
+    font-size: 1em;
+    color: #007bff;
+}
+
+a {
+    color: #0066cc; /* Màu mặc định */
+    text-decoration: none;
+    transition: color 0.3s ease; /* Mượt mà khi đổi màu */
+}
+
+a:hover {
+    color: darkred; /* Màu khi rê chuột vào */
+}
+.tennv{
+    color: black;
+    font-size: 25px;
+}
+.zoomable {
+    cursor: pointer;
+
+
+    height: auto;
+}
+
+/* Hiển thị ảnh toàn màn hình khi được click */
+.zoomable:active {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5); /* Phóng to 2 lần */
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+.e  {
+    text-align: center;
+
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    margin-bottom: 10px;
+}
+
+.menu a {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: #333;
+    background-color: whitesmoke;
+    border-radius: 5px;
+}
+
+
+.menu a:hover {
+    background-color: #d0d0d0;
+}
+
+
+
+.menu {
+    float: left; /* Menu nằm bên trái */
+    width: 270px; /* Điều chỉnh chiều rộng menu */
+    background-color: #f0f0f0; /* Màu nền menu */
+    padding: 32px;
+    position: fixed; /* Đặt menu ở chế độ fixed */
+    top: 0; /* Menu sẽ dính vào đỉnh màn hình */
+    left: 0; /* Menu dính vào bên trái màn hình */
+
+}
+
+.content {
+    padding-top: 30px; /* Điều chỉnh giá trị padding để tạo khoảng trống */
+    padding-left: 120px; /* Điều chỉnh giá trị padding để tạo khoảng trống */
+}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trò chơi đoán hình ảnh</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    img {
+      width: 300px;
+      height: auto;
+      border: 2px solid #ccc;
+      margin-bottom: 15px;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+    }
+
+    #result, #timer, #score {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    #nav-buttons {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Đoán hình ảnh</h1>
+
+  <div id="game-container">
+    <img id="image" src="" alt="Hình ảnh để đoán">
+    
+    <div>
+      <input type="text" id="answer" placeholder="Nhập câu trả lời...">
+      <button onclick="checkAnswer()">Kiểm tra</button>
+    </div>
+
+    <div id="result"></div>
+    <div id="timer">⏱️ Thời gian: <span id="time">30</span> giây</div>
+    <div id="score">🏆 Điểm: 0</div>
+
+    <div id="nav-buttons">
+      <button onclick="prevImage()">⬅️ Quay lại</button>
+      <button onclick="nextImage()">➡️ Tiếp theo</button>
+    </div>
+  </div>
+
+  <div id="summary" style="display:none; margin-top:30px;">
+    <h2>🎉 Tổng kết</h2>
+    <p>Số câu đúng: <span id="correctCount">0</span> / <span id="totalQuestions">0</span></p>
+    <p>Tổng điểm: <span id="finalScore">0</span></p>
+  </div>
+
+  <script>
+    const images = [
+      {
+        url: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Salt_on_black_background.jpg",
+        answer: "muối biển"
+      },
+      {
+        url: "https://upload.wikimedia.org/wikipedia/commons/3/36/Koi_fish_in_pond.jpg",
+        answer: "cá koi"
+      },
+      {
+        url: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Moon.jpg",
+        answer: "mặt trăng"
+      }
+    ];
+
+    let currentIndex = 0;
+    let score = 0;
+    let correctAnswers = 0;
+    let timer;
+    let timeLeft = 30;
+    let answered = false;
+
+    function loadImage() {
+      if (currentIndex >= images.length) {
+        showSummary();
+        return;
+      }
+
+      const image = document.getElementById("image");
+      const answerInput = document.getElementById("answer");
+      const result = document.getElementById("result");
+
+      image.src = images[currentIndex].url;
+      answerInput.value = "";
+      result.textContent = "";
+      answered = false;
+
+      resetTimer();
+    }
+
+    function checkAnswer() {
+      if (answered) return;
+
+      const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+      const correctAnswer = images[currentIndex].answer.toLowerCase();
+      const result = document.getElementById("result");
+
+      if (userAnswer === correctAnswer) {
+        result.textContent = "🎉 Chính xác!";
+        result.style.color = "green";
+        score += 10;
+        correctAnswers++;
+      } else {
+        result.textContent = `❌ Sai rồi! Đáp án đúng là: ${correctAnswer}`;
+        result.style.color = "red";
+      }
+
+      document.getElementById("score").textContent = `🏆 Điểm: ${score}`;
+      answered = true;
+      clearInterval(timer);
+    }
+
+    function nextImage() {
+      currentIndex++;
+      loadImage();
+    }
+
+    function prevImage() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        loadImage();
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      timeLeft = 5;
+      document.getElementById("time").textContent = timeLeft;
+
+      timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById("time").textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          if (!answered) {
+            const result = document.getElementById("result");
+            const correctAnswer = images[currentIndex].answer;
+            result.textContent = `⏰ Hết giờ! Đáp án đúng là: ${correctAnswer}`;
+            result.style.color = "orange";
+            answered = true;
+          }
+        }
+      }, 1000);
+    }
+
+    function showSummary() {
+      document.getElementById("game-container").style.display = "none";
+      document.getElementById("summary").style.display = "block";
+      document.getElementById("correctCount").textContent = correctAnswers;
+      document.getElementById("totalQuestions").textContent = images.length;
+      document.getElementById("finalScore").textContent = score;
+    }
+
+    // Khởi động
+    loadImage();
+  </script>
+</body>
+</html>
